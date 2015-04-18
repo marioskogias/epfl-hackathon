@@ -32,7 +32,9 @@ class ArticleHandler(object):
         return article
 
     def compute_relationship(self, article):
+        kw_list1 = article.keywords.split(",")
         for a in Article.objects.all():
-            score = self.calculate_relationship(article.keywords, a.keywords)
+            kw_list2 = a.keywords.split(",")
+            score = self.calculate_relationship(kw_list1, kw_list2)
             r = Relationship(id1=article.id, id2=a.id, score=score)
             r.save()
